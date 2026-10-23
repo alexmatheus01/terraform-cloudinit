@@ -1,0 +1,46 @@
+name: Pipeline CI/CD - Terraform
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Baixa o código do repositório
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Instala o Terraform no ambiente da pipeline
+      - name: Instalando o Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # Configura credenciais AWS para a pipeline
+      - name: Configurando credenciais da AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: sa-east-1
+
+      # Verifica a formatação dos arquivos Terraform
+      - name: Checando a Formatação...
+        run: terraform fmt -check
+
+      # Inicializa o Terraform
+      - name: Iniciando o Terraform
+        run: terraform init
+
+      # Valida a configuração
+      - name: Validando configuração do Terraform...
+        run: terraform validate
+      
+      # Gera o plano de execução
+      - name: Gerando o Plan
+        run: terraform plan

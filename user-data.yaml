@@ -1,0 +1,21 @@
+#cloud-config
+
+# Define o nome da máquina virtual
+hostname: cloudinit-vm
+
+# Solicita a atualização do arquivo /etc/hosts
+manage_etc_hosts: true
+
+# Atualiza os índices dos pacotes antes das instalações
+package_update: true
+
+# Instala o Docker e o servidor web Nginx na VM
+packages:
+- docker.io 
+- nginx
+
+# Define os comandos que devem ser executados durante o provisionamento da VM
+runcmd:
+  - [systemctl, enable, --now, docker]
+  - [systemctl, enable, --now, nginx]
+
