@@ -41,6 +41,11 @@ jobs:
       - name: Validando configuração do Terraform...
         run: terraform validate
       
-      # Gera o plano de execução
+      # Gera o plano de execução e tudo a ser feito
       - name: Gerando o Plan
         run: terraform plan
+
+      # Executa o que foi proposto no Plan
+      - name: Aplicando alterações
+        if:  github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
