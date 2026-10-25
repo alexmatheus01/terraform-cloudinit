@@ -9,18 +9,7 @@ terraform {
 
 # Define a região utilizada na AWS
 provider "aws" {
-  region = "sa-east-1"
-}
-
-# Busca a imagem oficial mais recente do Ubuntu
-data "aws_ami" "ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"] # conta oficial da Canonical (Ubuntu)
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
-  }
+  region = "us-east-2"
 }
 
 # Define regras para acessar a VM e cria o firewall
@@ -48,7 +37,7 @@ resource "aws_security_group" "web" {
 
 # Configura a instância Linux necessária para a VM
 resource "aws_instance" "vm_linux" {
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = ami-020ba0ae8c230ae28
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web.id]
 
