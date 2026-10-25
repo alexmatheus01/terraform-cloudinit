@@ -37,7 +37,7 @@ resource "aws_security_group" "web" {
 
 # Configura a instância Linux necessária para a VM
 resource "aws_instance" "vm_linux" {
-  ami                    = ami-020ba0ae8c230ae28
+  ami                    = "ami-020ba0ae8c230ae28"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.web.id]
 
