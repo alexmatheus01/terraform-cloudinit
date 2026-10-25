@@ -14,16 +14,18 @@ Este repositório foi criado para demonstrar a criação de uma Infraestrutura c
 
 ## Estrutura do Repositório
 
+```text
 .
 ├── .github/
 │   └── workflows/
 │       └── terraform.yml 
+
 ├── .gitignore               
 ├── main.tf                  
 ├── outputs.tf               
 ├── user-data.yaml            
 └── README.md                
-
+```
 ---
 
 ## Arquivos do repositório
